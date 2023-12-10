@@ -7,7 +7,7 @@ export interface Person extends Participant {
   id: string
 }
 
-export interface ParticipantMapping {
-  from: string
-  to: string
+export interface PersonMapping {
+  from: Person
+  to: Person
 }

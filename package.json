@@ -1,13 +1,13 @@
 {
   "name": "@mrtimeey/secret-santa-lib",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Simple library to shuffle pairs and send mails to the participants.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "dev": "ts-node index.ts",
     "build": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "vitest"
   },
   "repository": {
     "type": "git",

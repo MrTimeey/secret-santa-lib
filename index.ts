@@ -1,19 +1,15 @@
-import { type Participant, type ParticipantMapping, type Person } from './src/types'
+import { type Participant, type Person, type PersonMapping } from './src/types'
 import * as crypto from 'crypto'
 
 const shuffleEntries = (): number => 0.5 - Math.random()
 
-export const shuffle = (input: Participant[]): ParticipantMapping[] => {
+export const shuffle = (input: Participant[]): PersonMapping[] => {
   const baseKey: string = crypto.randomUUID()
   const participants: Person[] = input.map(p => ({ id: createId(p, baseKey), name: p.name, mail: p.mail }))
-  const pairMapping = createPairs(participants)
-  debug(pairMapping)
-  return pairMapping.map(p => ({ from: p[0].id, to: p[1].id }))
+  return createPairs(participants)
 }
 
-const debug = (pairMapping: Array<[Person, Person]>): void => { console.log('DEBUG', pairMapping.map(p => `${p[0].name} with ${p[1].name}`)) }
-
-const createPairs = (participants: Person[]): Array<[Person, Person]> => {
+const createPairs = (participants: Person[]): PersonMapping[] => {
   let result: Array<[Person, Person]> = []
   let counter: number = 0
   while (result.length === 0 && counter !== 500) {
@@ -30,7 +26,7 @@ const createPairs = (participants: Person[]): Array<[Person, Person]> => {
       result.push([sourcePerson, randomTargetPerson])
     }
   }
-  return result
+  return result.map(tuple => ({ from: tuple[0], to: tuple[1] }))
 }
 
 const createId = (participant: Participant, baseKey: string): string => {
